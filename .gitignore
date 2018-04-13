@@ -1,0 +1,36 @@
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+tmp/cache/
+
+# Ignore DS_Store
+*.Ds_Store
+
+# Ignore Byebug command history file.
+.byebug_history
+
+.idea/*
+*.keep
+
+coverage/*
+db/schema.rb
+dump.rdb
+
+config/database.yml
+config/secrets.yml
+config/settings.yml
+config/settings/*.yml
+config/environments/*.local.yml
+public/assets
+public/uploads
+public/system
+
+!public/404.html
+!public/422.html
+!public/500.html
+!public/favicon.ico
+
+/tags
+/doc
