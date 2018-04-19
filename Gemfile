@@ -7,6 +7,9 @@ end
 
 gem 'grape'
 gem 'grape-entity'
+gem 'grape-swagger'
+gem 'devise'
+gem 'webpacker'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

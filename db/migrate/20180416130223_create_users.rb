@@ -7,7 +7,6 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :qq
       t.string :wechat
       t.string :city
-      t.string :email
 
       t.timestamps
     end
