@@ -4,6 +4,7 @@ window.onload = function() {
   // Build a system
   const ui = SwaggerUIBundle({
     url: "/api/v1/doc/swagger",
+    validatorUrl: null,
     dom_id: '#swagger-ui',
     deepLinking: true,
     presets: [
