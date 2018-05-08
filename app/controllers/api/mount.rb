@@ -1,12 +1,22 @@
-require 'grape-swagger'
-
 module API
   class Mount < Grape::API
     format :json
     default_format :json
     version 'v1', using: :path
 
+    before do
+      header['Access-Control-Allow-Origin'] = '*'
+      header['Access-Control-Request-Method'] = '*'
+    end
+
+    # rescue_from :all do |e|
+    #   error!({ error: e }, 500, { 'Content-Type' => 'text/error' })
+    # end
+    rescue_from :all, backtrace: true
+
     mount Diaries
+    mount Registrations
+    mount Sessions
 
     add_swagger_documentation \
       base_path: '/api',
