@@ -2,7 +2,7 @@ module API
   class Sessions < Grape::API
     include API::Authentication
 
-    desc '登录用户', consumes: ['application/x-www-form-urlencoded']
+    desc '登录用户', consumes: ['application/x-www-form-urlencoded'], tags: ['用户']
     params do
       requires :username, type: String, desc: '用户名或邮箱'
       requires :password, type: String, desc: '密码'
@@ -23,7 +23,7 @@ module API
       end
     end
 
-    desc '登出用户'
+    desc '登出用户', tags: ['用户']
     # params do
     #   requires :token, type: String, desc: "Authenticaiton Token"
     # end
@@ -49,7 +49,7 @@ module API
       # end
     end
 
-    desc '查看当前用户'
+    desc '查看当前用户', tags: ['用户']
     get '/user' do
       user = current_user
       { username: user.username } if user

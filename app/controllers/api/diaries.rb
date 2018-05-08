@@ -1,6 +1,6 @@
 module API
   class Diaries < Grape::API
-    desc 'Get all diaries'
+    desc 'Get all diaries', tags: ['日记']
     params do
       optional :limit, type: Integer, default: 10, desc: 'Set result limit.'
     end
