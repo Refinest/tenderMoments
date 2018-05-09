@@ -2,24 +2,24 @@ module API
   class Sessions < Grape::API
     include API::Authentication
 
-    desc '登录用户', consumes: ['application/x-www-form-urlencoded'], tags: ['用户']
+    desc '登录用户', consumes: ['application/x-www-form-urlencoded'], tags: ['用户'], detail: "登录用户，并返回用户 token"
     params do
-      requires :username, type: String, desc: '用户名或邮箱'
-      requires :password, type: String, desc: '密码'
+      requires :login, type: String, desc: '用户名或邮箱'
+      requires :password, type: String, desc: '密码', documentation: { type: "password" }
     end
     post '/users/sign_in' do
-      username = params[:username]
+      login = params[:login]
       password = params[:password]
-      user = User.find_by(username: username)
-      
-      error!({ error_code: 404, error_message: "用户名不存在" }) if user.nil?
+      user = User.find_by "username = ? or email = ?", login, login
+
+      error!({ error_code: 404, error_message: "用户名或邮箱不存在" }, 404) if user.nil?
       if !user.valid_password?(password)
-        error!({ error_code: 404, error_message: "用户名或密码不正确" })
+        error!({ error_code: 404, error_message: "用户名或密码不正确" }, 404)
       else
         user.ensure_authentication_token!
         user.save!
         warden.set_user(user)
-        { status: 'ok', token: user.authentication_token }.to_json
+        { status: 'ok', token: user.authentication_token }
       end
     end
 
@@ -29,7 +29,7 @@ module API
     # end
     delete '/users/sign_out' do
       if current_user.nil?
-         error!({ error_code: 500, error_message: "No user logged in." })
+         error!({ error_code: 404, error_message: "No user logged in." }, 404)
       else
         warden.logout
         { status: 'ok'}
@@ -49,7 +49,7 @@ module API
       # end
     end
 
-    desc '查看当前用户', tags: ['用户']
+    desc '查看当前用户', tags: ['用户'], detail: '查看当前登录的用户，返回用户名'
     get '/user' do
       user = current_user
       { username: user.username } if user
