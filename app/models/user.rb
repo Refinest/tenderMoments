@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :diaries, dependent: :destroy
 
-  # before_save :ensure_authentication_token!
+  validates :username, presence: true, uniqueness: true, length: 3..16
+  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, multiline: true # Allow only letter, number, underscore and punctuation.
 
   def ensure_authentication_token!
     self.authentication_token ||= generate_authentication_token
