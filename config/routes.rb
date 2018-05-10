@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :documents, only: :index
 
+  # mount API::Mount => '/'
   mount API::Mount => '/api'
 
 end

@@ -28,12 +28,9 @@ module API
     #   requires :token, type: String, desc: "Authenticaiton Token"
     # end
     delete '/users/sign_out' do
-      if current_user.nil?
-         error!({ error_code: 404, error_message: "No user logged in." }, 404)
-      else
-        warden.logout
-        { status: 'ok'}
-      end
+      authenticate_user!
+      warden.logout
+      { status: 'ok'}
 
       # user = User.find_by(authentication_token: params[:token])
       # if !user.nil?
@@ -51,8 +48,8 @@ module API
 
     desc '查看当前用户', tags: ['用户'], detail: '查看当前登录的用户，返回用户名'
     get '/user' do
-      user = current_user
-      { username: user.username } if user
+      authenticate_user!
+      { username: current_user.username }
     end
   end
 end

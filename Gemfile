@@ -13,6 +13,7 @@ gem 'webpacker'
 gem 'slim-rails'
 gem 'jquery-rails'
 gem 'rails-i18n'
+gem 'config'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'

@@ -2,7 +2,9 @@ module API
   class Mount < Grape::API
     format :json
     default_format :json
-    version 'v1', using: :path
+    version 'v1'
+
+    helpers ::API::Helpers
 
     before do
       header['Access-Control-Allow-Origin'] = '*'
@@ -17,10 +19,12 @@ module API
     mount Diaries
     mount Registrations
     mount Sessions
+    mount Passwords
 
     add_swagger_documentation \
       base_path: '/api',
-      mount_path: 'doc/swagger',
+      # base_path: '',
+      mount_path: '/swagger_doc',
       doc_version: '0.0.2',
       info: {
         title: "小美好 API 文档",
@@ -30,6 +34,5 @@ module API
         { name: '用户', description: '用户相关操作' },
         { name: '日记', description: '日记相关操作' }
       ]
-
   end
 end
