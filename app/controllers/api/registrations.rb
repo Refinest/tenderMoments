@@ -9,7 +9,6 @@ module API
     end
     post '/users' do
       user = User.create! declared(params)
-      user.save if user.valid?
       { username: user.username, email: user.email }
     end
   end

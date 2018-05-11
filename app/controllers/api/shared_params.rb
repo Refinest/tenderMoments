@@ -8,4 +8,11 @@ module API::SharedParams
     optional :qq, desc: 'QQ'
     optional :wechat, desc: '微信'
   end
+
+  params :diary do
+    requires :title, desc: '日记标题'
+    requires :content, desc: '日记内容'
+    optional :mood, desc: '心情'
+    optional :weather, desc: '天气'
+  end
 end
