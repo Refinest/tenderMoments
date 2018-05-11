@@ -1,7 +1,5 @@
 module API
   class Passwords < Grape::API
-    include API::Authentication
-
     desc '重置密码', consumes: ['application/x-www-form-urlencoded'], tags: ['用户'], detail: '重置密码（忘记密码）'
     params do
       requires :email, type: String, desc: '邮箱'
